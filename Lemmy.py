@@ -4,7 +4,7 @@ from pygame.sprite import Sprite, collide_rect #не забывать импор
 from pygame import Surface
 from pygame.image import load
 import pyganim
-import sys
+# import sys
 
 
 pygame.init()
@@ -103,7 +103,7 @@ def Music():
             screen.blit(text_back, (screen_width / 2 - (back_rect[2] / 2), 425))
             pygame.display.update()
             clock.tick(FPS)
-            pygame.display.set_caption("Lemmy")
+            pygame.display.set_caption("LEMMY")
 
     main_menu()
 def Pause():
@@ -191,7 +191,7 @@ def Pause():
             screen.blit(text_quit, (screen_width / 2 - (quit_rect[2] / 2), 425))
             pygame.display.update()
             clock.tick(FPS)
-            pygame.display.set_caption("WoW 2.0")
+            pygame.display.set_caption("LEMMY")
     main_menu()
 
 global level
@@ -303,6 +303,7 @@ def Levels():
                                 "                                                                                                                       -",
                                 "                                                                                                                       -",
                                 "                                                                                                                       -",
+                                "                                                                                                                       -",
                                 "                                 *                                                                                     -",
                                 "                                                                                            -    *                     -",
                                 "                                 ---                                                             *                     -",
@@ -321,6 +322,7 @@ def Levels():
                         if selected == "Hard":
                             level = [
                                 "     ******************************************************************************************************************-",
+                                "                                                                                                                         -",
                                 "                                                                                                                         -",
                                 "                                                *                              **                                        -",
                                 "                  *-                                   *                                                                 -",
@@ -556,7 +558,7 @@ def main_menu():
                         quit()
         # Main Menu UI
         screen.blit(background, [0, 0])
-        title = text_format("Lemmy", font, 90, darkviolet)
+        title = text_format("LEMMY", font, 90, darkviolet)
         if selected == "start":
             text_start = text_format("START", font, 75, mediumviolet)
         else:
@@ -652,7 +654,7 @@ def Game_over():
             screen.blit(text_enter, (screen_width / 2 - (quit_rect[2] / 2), 500))
             pygame.display.update()
             clock.tick(FPS)
-            pygame.display.set_caption("Lemmy")
+            pygame.display.set_caption("LEMMY")
 
     Game_over_menu()
 
@@ -719,12 +721,12 @@ def Congratulations():
             info_string.blit(speed_font.render('YOUR TIME: ' + str(counter), True, (0, 0, 0)), (100, 1))
             pygame.display.update()
             clock.tick(FPS)
-            pygame.display.set_caption("Lemmy")
+            pygame.display.set_caption("LEMMY")
 
     Game_over_menu()
 
 
-pygame.display.set_caption("Lemmy") #название окна
+pygame.display.set_caption("LEMMY") #название окна
 
 #платформа
 PLATFORM_WIDTH = 32
@@ -735,7 +737,7 @@ DOLLARS_WIDTH = 32
 DOLLARS_HEIGHT = 32
 
 #окно
-WIN_WIDTH = 1000
+WIN_WIDTH = 800
 WIN_HEIGHT = 600
 
 
@@ -759,7 +761,7 @@ JUMP_POWER = 10
 GRAVITY = 0.4
 
 global HITPOINTS
-HITPOINTS = 100
+HITPOINTS = 50
 
 class Platform(Sprite):
     def __init__(self, x, y):
@@ -951,6 +953,9 @@ class Player(Sprite):
             self.boltAnimLeft.play()
         if not self.onGround:
             self.yvel += GRAVITY
+        if self.rect.x < -2:
+            self.die()
+
 
         self.onGround = False
         self.rect.x += self.xvel
@@ -970,9 +975,6 @@ class Player(Sprite):
                     jump_sound = mixer.Sound('Звук/Queen - We Are A Champions (online-audio-converter.com).ogg')
                     jump_sound.play()
                     Congratulations()
-                if isinstance(pl, Dollars):
-                    self.SCORE += 1
-                    info_string.blit(speed_font.render('SCORE: ' + str(self.SCORE), 1, (0, 0, 0)), (200, 1))
                 if xvel > 0:
                     self.rect.right = pl.rect.left
                 if xvel < 0:
@@ -984,6 +986,7 @@ class Player(Sprite):
                 if yvel < 0:
                     self.rect.top = pl.rect.bottom
                     self.yvel = 0
+
     def teleporting(self, goX, goY):
         self.rect.x = goX
         self.rect.y = goY
