@@ -1,5 +1,4 @@
 About
-Developers "Game", "Menu", "Levels"
+Developers "Game", "Levels"
 Game - Gerard Maslov
-Menu - Aleksei Muraitov
-Levels - Tatiana Kramina
+Levels - Usov Vladislav
